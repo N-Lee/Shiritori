@@ -224,7 +224,7 @@ function setup(){
 }
 
 function loadDictionary(){
-    $.get('https://raw.githubusercontent.com/jeresig/trie-js/master/dict/string.txt',  function(contents){
+    $.get('https://github.com/N-Lee/Shiritori/blob/master/words.txt',  function(contents){
         var start = (new Date).getTime();
         var lines = contents.split(" ");
 
