@@ -224,9 +224,9 @@ function setup(){
 }
 
 function loadDictionary(){
-    $.get('https://github.com/N-Lee/Shiritori/blob/master/words.txt',  function(contents){
+    $.get('https://raw.githubusercontent.com/N-Lee/Shiritori/master/words.txt',  function(contents){
         var start = (new Date).getTime();
-        var lines = contents.split(" ");
+        var lines = contents.split("\n");
 
         $.each(lines, function(n, elem){
             trie.insert(elem);
