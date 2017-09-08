@@ -24782,6 +24782,8 @@ hurts
 husband
 husbandman
 husbandmen
+husbando
+husbandos
 husbandry
 husbands
 hush
@@ -27716,6 +27718,7 @@ jarred
 jarring
 jars
 jasmine
+jason
 jaundice
 jaundiced
 jaunt
@@ -37878,6 +37881,7 @@ plywood
 pneumatic
 pneumatics
 pneumonia
+pneumonoultramicroscopicsilicovolcanoconiosis
 poach
 poached
 poacher
@@ -50746,6 +50750,7 @@ tabulating
 tabulation
 tabulations
 tabulator
+tachanka
 tachograph
 tachographs
 tachycardia
@@ -53124,6 +53129,7 @@ triviality
 trivially
 trod
 trodden
+trogdor
 troglodyte
 troglodytes
 troika
@@ -53520,6 +53526,7 @@ twitched
 twitches
 twitching
 twitchy
+twitch.tv/polyglot_ent
 twitter
 twittered
 twittering
@@ -56378,6 +56385,8 @@ wagtail
 wagtails
 waif
 waifs
+waifu
+waifus
 wail
 wailed
 wailer

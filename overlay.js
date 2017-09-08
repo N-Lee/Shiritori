@@ -301,7 +301,6 @@ $("#submit").click(function() {
 
     	customModal.style.display = "none";
         reset();
-        $("#errors").html(customLength + " " + customTime + " " + customLength);
         customInfo(customStart, customTime, customLength);
         rules();
 	}
@@ -312,3 +311,8 @@ $("#winButton").click(function() {
     mainModal.style.display = "block";
 
 });
+
+$("#back").click(function(){
+    mainModal.style.display = "block";
+    customModal.style.display = "none"
+})
