@@ -1,0 +1,104 @@
+<!doctype html>
+
+<html lang="en">
+	<head>
+	  <meta charset="utf-8">
+
+	  <title>Word Chain</title>
+	  <meta name="description" content="The HTML5 Herald">
+	  <meta name="author" content="SitePoint">
+
+	  <link rel="stylesheet" href="index.css" type="text/css">
+	  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Noto+Serif|Playfair+Display">
+
+	  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+	</head>
+
+	<body onload="overlayLoad()">
+	
+
+		<h1 class="title">Word Chain - Shiritori</h1>
+
+		<div class="mainBody" id="mainBody">
+
+			<div class="divPlay" id="divPlay1">
+				<table id="tablePlay1" class="tablePlay1">
+					<tr class="scoreRow">
+						<td colspan="2" id="score1" class="score">N/A</td>
+					</tr>
+					<tr id="trPlayOne" class="trPlayer">
+						<th colspan="2">
+							<input type="text" id="answer1" class="answer" palceholder=""></input>
+						</th>
+					</tr>
+				</table>
+			</div>
+
+			<div class="divPlay" id="divPlay2">
+				<table id="tablePlay2" class="tablePlay2">
+					<tr class="scoreRow">
+						<td colspan="2" id="score2" class="score">N/A</td>
+					</tr>
+					<tr id="trPlayTwo" class="trPlayer">
+						<th colspan="2">
+							<input type="text" id="answer2" class="answer" disabled></input>
+						</th>
+					</tr>
+				</table>
+			</div>
+
+			<!-- The Modal -->
+			<div id="mainModal" class="modal">
+
+			  <!-- Modal content -->
+			  <div class="modalContent">
+			    <button id="easy" class="easyBtn">Easy</button>
+			    <button id="medium" class="mediumBtn">Medium</button>
+			    <button id="hard" class="hardBtn">Hard</button>
+			    <button id="custom" class="customBtn">Custom</button>
+			    <button id="instruction" class="instructBtn">Instructions</button>
+			    <button id="close" class="closeBtn">Close</button>
+			  </div>
+			</div>
+
+			<div id="customModal" class="modal">
+
+				<div class="customModalContent">
+					<div class="innerContent">
+				 		<div class="info">Minimum Word Length: </div>
+				 		<div class="infoInput"><input id="wordLength" class="customAnswer"></input></div>
+				 		<br>
+				 		<div class="info">Starting Points: </div>
+				 		<div class="infoInput"><input id="startingPoint" class="customAnswer"></input></div>
+				 		<br>
+				 		<div class="info">Time: </div>
+				 		<div class="infoInput"><input id="time" class="customAnswer"></input></div>
+				 		<br><p id="errors"></p><br>
+				 		<button id="submit" class="submitBtn">Submit</button>
+				 	</div>
+				</div>
+			</div>
+
+			<div id="winModal" class="modal">
+				<div class="winModalContent">
+					<p id="winText"></p>
+					<button id="winButton" class="winbutton">Main Menu</button>
+				</div>
+			</div>
+
+			<div id="rulesModal" class="modal">
+				<div class="rulesModalContent">
+					<p id="rulesText"></p>	
+				</div>
+			</div>
+
+		</div>
+		<div class="buttonDiv">
+			<button id="menu" class="menu">Open Menu</button>
+		</div>
+
+		<script src="overlay.js" type="text/javascript"></script>
+
+	</body>
+</html>
