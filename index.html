@@ -29,6 +29,9 @@
 					</tr>
 					<tr id="trPlayOne" class="trPlayer">
 						<th colspan="2">
+							<div id="playOneProgress" class="progress">
+	  							<div id="playOneBar" class="bar"></div>
+							</div>
 							<input type="text" id="answer1" class="answer" palceholder=""></input>
 						</th>
 					</tr>
@@ -42,6 +45,9 @@
 					</tr>
 					<tr id="trPlayTwo" class="trPlayer">
 						<th colspan="2">
+							<div id="playTwoProgress" class="progress">
+	  							<div id="playTwoBar" class="bar"></div>
+							</div>
 							<input type="text" id="answer2" class="answer" disabled></input>
 						</th>
 					</tr>
@@ -51,15 +57,24 @@
 			<!-- The Modal -->
 			<div id="mainModal" class="modal">
 
-			  <!-- Modal content -->
-			  <div class="modalContent">
-			    <button id="easy" class="easyBtn">Easy</button>
-			    <button id="medium" class="mediumBtn">Medium</button>
-			    <button id="hard" class="hardBtn">Hard</button>
-			    <button id="custom" class="customBtn">Custom</button>
-			    <button id="instruction" class="instructBtn">Instructions</button>
-			    <button id="close" class="closeBtn">Close</button>
-			  </div>
+				<!-- Modal content -->
+				<div class="modalContent">
+					<div>
+						<br><br><br>
+					    <button id="easy" class="easyBtn">Easy</button>
+					    <button id="medium" class="mediumBtn">Medium</button>
+					    <button id="hard" class="hardBtn">Hard</button>
+					    <button id="custom" class="customBtn">Custom</button>
+					</div>
+					<div>
+						<br>
+					    <button id="instruction" class="instructBtn">Instructions</button>
+					</div>
+					<div>
+						<br>
+					    <button id="close" class="closeBtn">Close</button>
+					</div>
+				</div>
 			</div>
 
 			<div id="customModal" class="modal">
@@ -96,8 +111,19 @@
 				</div>
 			</div>
 
+			<div id="instructionModal" class="modal">
+				<div class="instructionModalContent">
+					<p id="instructionText"><br><br><br>
+					Word chain is a word game in which players come up with words that begins with the letter that the previous word ended with. There is a time limit and words may not be repeated in the same game. Points are scored by the length of the word and how quickly it is typed.
+					</p>
+					<br><br><br>
+					<button id="instructionButton">Back</button>
+				</div>	
+			</div>
+
 		</div>
 		<div class="buttonDiv">
+			<br>
 			<button id="menu" class="menu">Open Menu</button>
 		</div>
 

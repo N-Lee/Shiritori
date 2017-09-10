@@ -66,14 +66,19 @@ var playerTwo = "Player 2";
 var playerOneWon = false;
 var firstLoad = true;
 var trie = new trie();
+var usedWords = [];
+var intervalOne;
+var intervalTwo;
+var paused = false;
 
 $("#answer1").on("keypress", function(e) {
     var code = e.keyCode || e.which;
     var hasString = false;
     if(code==13){
         var input = $("#answer1").val();
-        if (input.charAt(0).localeCompare(startsWith) == 0 && trie.find(input) && input.length >= wordLength){
-	        var points = input.length - wordLength;
+        if (input.charAt(0).localeCompare(startsWith) == 0 && trie.find(input) && input.length >= wordLength && usedWords.indexOf(input) < 0){
+            usedWords.push(input);
+	        var points = input.length - wordLength + parseInt($("#playOneBar").html());
             var temp = score1;
 	        score1 -= points;
             if (score1 < 0){
@@ -93,16 +98,7 @@ $("#answer1").on("keypress", function(e) {
 
 	        $("#score1").text(score1);
 	        $('#tablePlay1 tr').eq(1).after("<tr><td width=80%>" + input + "</td><td>" + points + "</td></tr>");
-	        $("#answer1").val('');
-	        startsWith = input.charAt(input.length-1)
-	        $("#answer1").attr("placeholder", "");
-	        $("#answer2").attr("placeholder", startsWith);
-	        $("#answer1").prop("disabled", true);
-	        $("#answer2").prop("disabled", false);
-            $("#divPlay2").toggleClass("divPlay divPlayTurn");
-            $("#divPlay1").toggleClass("divPlayTurn divPlay");
-	        $("#answer2").select();
-
+	        switchToPlayerTwo(input);
     	} else {
     		$("#answer1").val('');
     		$("#answer1").attr("placeholder", startsWith);
@@ -110,6 +106,7 @@ $("#answer1").on("keypress", function(e) {
     }
 
     if (score1 < 1){
+        stopPlayerTwo();
         playerOneWon = true;
         $("#divPlay2").toggleClass("divPlayTurn divPlay");
         win(playerOne);
@@ -120,8 +117,9 @@ $('#answer2').on('keypress', function(e) {
     var code = e.keyCode || e.which;
     if(code==13){
         var input = $('#answer2').val();
-        if (input.charAt(0).localeCompare(startsWith) == 0 && trie.find(input) && input.length >= wordLength){
-	        var points = input.length - wordLength;
+        if (input.charAt(0).localeCompare(startsWith) == 0 && trie.find(input) && input.length >= wordLength && usedWords.indexOf(input) < 0){
+            usedWords.push(input);
+	        var points = input.length - wordLength + parseInt($("#playTwoBar").html());
             var temp = score2;
 	        score2 -= points;
 	        if (score2 < 0){
@@ -140,15 +138,8 @@ $('#answer2').on('keypress', function(e) {
             });
 
             $('#tablePlay2 tr').eq(1).after("<tr><td width=80%>" + input + "</td><td>" + points + "</td></tr>");
-	        $("#answer2").val('');
-	        startsWith = input.charAt(input.length-1)
-	        $("#answer1").attr("placeholder", startsWith);
-	        $("#answer2").attr("placeholder", "");
-	        $("#answer1").prop("disabled", false);
-	        $("#answer2").prop("disabled", true);
-            $("#divPlay1").toggleClass("divPlay divPlayTurn");
-            $("#divPlay2").toggleClass("divPlayTurn divPlay");
-	        $("#answer1").select();
+	        switchToPlayerOne(input);
+
     	} else {
     		$("#answer2").val('');
     		$("#answer2").attr("placeholder", startsWith);
@@ -156,7 +147,9 @@ $('#answer2').on('keypress', function(e) {
     }
 
     if (score2 < 1){
+        stopPlayerOne();
         playerOneWon = false;
+        $("#divPlay1").toggleClass("divPlayTurn divPlay");
         win(playerTwo);
     }
 }); 
@@ -175,6 +168,7 @@ function customInfo(score, time, wordLen){
 	score2 = score;
 	$("#score1").text(score1);
 	$("#score2").text(score2);
+    this.time = time;
 	wordLength = wordLen;
 }
 
@@ -182,11 +176,39 @@ function win(winner){
     winModal.style.display = "block";
     mainModal.style.display = "none";
     customModal.style.display = "none";
-    $("#winText").html(winner + " wins");
+    $("#winText").html("<h1>" + winner + " wins</h1>");
+}
+
+function switchToPlayerTwo(input){
+    $("#answer1").val('');
+    startsWith = input.charAt(input.length-1)
+    $("#answer1").attr("placeholder", "");
+    $("#answer2").attr("placeholder", startsWith);
+    $("#answer1").prop("disabled", true);
+    $("#answer2").prop("disabled", false);
+    $("#divPlay2").toggleClass("divPlay divPlayTurn");
+    $("#divPlay1").toggleClass("divPlayTurn divPlay");
+    $("#answer2").select();
+    stopPlayerOne();
+    movePlayerTwo();
+}
+
+function switchToPlayerOne(input){
+    $("#answer2").val('');
+    startsWith = input.charAt(input.length-1)
+    $("#answer1").attr("placeholder", startsWith);
+    $("#answer2").attr("placeholder", "");
+    $("#answer1").prop("disabled", false);
+    $("#answer2").prop("disabled", true);
+    $("#divPlay1").toggleClass("divPlay divPlayTurn");
+    $("#divPlay2").toggleClass("divPlayTurn divPlay");
+    $("#answer1").select();
+    stopPlayerTwo();
+    movePlayerOne();
 }
 
 function rules(){
-    $("#rulesText").html("<h1>Rules<\/h1><br>Minimum Word Length: " + wordLength + "<br><br>Starting Points: " + score1);
+    $("#rulesText").html("<h1>Rules<\/h1><br>Minimum Word Length: " + wordLength + "<br><br>Starting Points: " + score1 + "<br><br>Time: " + time);
     winModal.style.display = "none";
     mainModal.style.display = "none";
     customModal.style.display = "none";
@@ -208,6 +230,9 @@ function reset(){
 	$("#tablePlay2").find("tr:gt(1)").remove();
 	$("#answer1").prop("disabled", false);
 	$("#answer2").prop("disabled", true);
+    clearInterval(intervalOne);
+    clearInterval(intervalTwo);
+    usedWords = [];
 }
 
 function setup(){
@@ -221,6 +246,7 @@ function setup(){
     $("#answer1").select();
     rulesModal.style.display = "none";
     firstLoad = false;
+    movePlayerOne();
 }
 
 function loadDictionary(){
@@ -237,9 +263,79 @@ function loadDictionary(){
     });
 }
 
+function movePlayerOne() {
+    var elem = $("#playOneBar")[0];
+    var width = 1000;
+    intervalOne = setInterval(frame, time);
+    function frame() {
+        if (paused){
+            return;
+        }
+        if (width <= -1) {
+          switchToPlayerTwo(startsWith);
+        } else {
+            width--; 
+            var incrementTime = width * time + 1000;
+            elem.style.width = width/10 + '%';
+            if (width < 1){
+                incrementTime = 0;
+            }
+            if (incrementTime < 10000){
+                elem.innerHTML = incrementTime.toString()[0];
+            } else {
+                elem.innerHTML = incrementTime.toString()[0] + incrementTime.toString()[1];
+            }
+        }
+    }
+}
+
+function stopPlayerOne(){
+    clearInterval(intervalOne);
+}
+
+function movePlayerTwo() {
+    var elem = $("#playTwoBar")[0];
+    var width = 1000;
+    intervalTwo = setInterval(frame, time);
+    function frame() {
+        if (paused){
+            return;
+        }
+        if (width <= -1) {
+          switchToPlayerOne(startsWith);
+        } else {
+            width--; 
+            var incrementTime = width * time + 1000;
+            elem.style.width = width/10 + '%';
+            if (width < 1){
+                incrementTime = 0;
+            }
+            if (incrementTime < 10000){
+                elem.innerHTML = incrementTime.toString()[0];
+            } else {
+                elem.innerHTML = incrementTime.toString()[0] + incrementTime.toString()[1];
+            }
+        }
+    }
+}
+
+function stopPlayerTwo(){
+    clearInterval(intervalTwo);
+}
+
+function resumeTimer(){
+    paused = false;
+}
+
+function pauseTimer(){
+    paused = true;
+}
+
+
 // When the user clicks on the button, open the modal 
 $("#menu").click(function() {
     mainModal.style.display = "block";
+    pauseTimer();
 });
 
 $("#easy").click(function() {
@@ -269,11 +365,13 @@ $("#custom").click(function() {
 });
 
 $("#instruction").click(function() {
-	window.location="instruction.html";
+	mainModal.style.display = "none";
+    instructionModal.style.display = "block";
 });
 
 $("#close").click(function() {
     mainModal.style.display = "none";
+    resumeTimer();
 });
 
 $("#submit").click(function() {
@@ -315,4 +413,9 @@ $("#winButton").click(function() {
 $("#back").click(function(){
     mainModal.style.display = "block";
     customModal.style.display = "none"
-})
+});
+
+$("#instructionButton").click(function(){
+    mainModal.style.display = "block";
+    instructionModal.style.display = "none"
+});

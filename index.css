@@ -24,11 +24,11 @@ div.mainBody{
 div.divPlay{
 	box-shadow: -3px 3px 5px #111111;
 	background-color: #333333;
-	margin-left: 12%;
+	margin-left: 11%;
 	float:left;
 	width: 33%;
 	height: 100%;
-    overflow: auto; /* Enable scroll if needed */
+    overflow: auto;
 }
 
 div.divPlayTurn{
@@ -39,7 +39,7 @@ div.divPlayTurn{
 	float:left;
 	width: 33%;
 	height: 100%;
-    overflow: auto; /* Enable scroll if needed */
+    overflow: auto;
 }
 
 @keyframes pulse{
@@ -49,6 +49,7 @@ div.divPlayTurn{
 
 div.buttonDiv{
 	text-align:center;
+
 }
 
 div.info{
@@ -72,38 +73,53 @@ div.innerContent{
 	transform: translateY(-55%);
 }
 
-.modal {
-    display: none; /* Hidden by default */
-    position: fixed; /* Stay in place */
-    z-index: 1; /* Sit on top */
-    left: 0;
-    top: 0;
-    width: 100%; /* Full width */
-    height: 100%; /* Full height */
-    background-color: rgb(0,0,0); /* Fallback color */
-    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+div.progress {
+	width:100%;
+	background-color: #001f3f;
 }
 
-/* Modal Content/Box */
+div.bar {
+  width: 100%;
+  height: 30px;
+  background-color: #4CAF50;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.4);
+}
+
+
 .modalContent {
     background-color: rgba(51, 51, 51, .8);
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     border: 1px;
     border-style: solid;
     border-color: rgba(70, 70, 70, .8);
     border-radius: 10px;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 60%;
     height: 40%;
+    text-align: center;
 }
 
 .customModalContent {
     background-color: rgba(51, 51, 51, .8);
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     border: 1px;
     border-style: solid;
     border-color: rgba(70, 70, 70, .8);
     border-radius: 10px;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 60%;
     height: 40%;
     text-align: center;
     vertical-align: middle;
@@ -111,12 +127,12 @@ div.innerContent{
 
 .winModalContent {
     background-color: rgba(51, 51, 51, .8);
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     border: 1px;
     border-style: solid;
     border-color: rgba(70, 70, 70, .8);
     border-radius: 10px;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 60%;
     height: 40%;
     text-align: center;
     vertical-align: middle;
@@ -124,12 +140,25 @@ div.innerContent{
 
 .rulesModalContent {
     background-color: rgba(51, 51, 51, .8);
-    margin: 15% auto; /* 15% from the top and centered */
+    margin: 15% auto;
     border: 1px;
     border-style: solid;
     border-color: rgba(70, 70, 70, .8);
     border-radius: 10px;
-    width: 60%; /* Could be more or less, depending on screen size */
+    width: 60%;
+    height: 40%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.instructionModalContent {
+    background-color: rgba(51, 51, 51, .8);
+    margin: 15% auto;
+    border: 1px;
+    border-style: solid;
+    border-color: rgba(70, 70, 70, .8);
+    border-radius: 10px;
+    width: 60%;
     height: 40%;
     text-align: center;
     vertical-align: middle;
@@ -139,7 +168,7 @@ input[type="text"].answer{
 	color:#7FDBFF;
 	background-color: #001f3f;
 	border-color: #0074D9;
-	width: 100%;
+	width: 99%;
 	height: 40px;
 	font-size: 36px;
 }
@@ -180,26 +209,18 @@ tr.scoreRow{
 	background-color: #333333;
 }
 
-button.menu{
-	margin: 50px;
-}
-
-button.easyBtn{
-
-}
-
-button.mediumBtn{
-
-}
-
-button.hardBtn{
-
-}
-
-button.veryHardBtn{
-
-}
-
-button.instructBtn{
-
+button {
+    position: relative;
+    background-color: #222222;
+    border: none;
+    font-size: 18px;
+    color: #FFFFFF;
+    padding: 20px;
+    width: 150px;
+    text-align: center;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    text-decoration: none;
+    overflow: hidden;
+    cursor: pointer;
 }
